@@ -69,7 +69,7 @@ wasm-bindgen-futures = { workspace = true }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 zstd = { workspace = true, optional = true }
-reqwest = { workspace = true, features = ["blocking"] }
+reqwest = { workspace = true, features = ["blocking"], optional = true }
 
 [dev-dependencies]
 criterion = { workspace = true }
@@ -101,6 +101,7 @@ compression = ["zstd"]
 in_nodejs = []
 fuzzing = []
 openapi = ["dep:utoipa"]
+network = ["dep:reqwest"] 
 
 [profile.release]
 debug = true

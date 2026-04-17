@@ -12,7 +12,7 @@ anyhow            = { workspace = true }
 ark-ff            = { workspace = true }
 base64            = { workspace = true }
 juniper           = { workspace = true }
-ledger            = { workspace = true }
+ledger            = { workspace = true, features = ["network"] }
 mina-core         = { path = "../core" }
 mina-curves       = { workspace = true }
 mina-node-native  = { workspace = true }
