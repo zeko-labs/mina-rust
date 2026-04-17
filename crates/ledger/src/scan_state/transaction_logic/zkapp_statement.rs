@@ -4,9 +4,28 @@ use mina_curves::pasta::Fp;
 use mina_hasher::{Hashable, ROInput};
 use mina_signer::NetworkId;
 use poseidon::hash::{hash_with_kimchi, params::MINA_ACCOUNT_UPDATE_CONS};
+use serde::{Deserialize, Serialize};
 
-#[derive(Copy, Clone, Debug, derive_more::Deref, derive_more::From)]
-pub struct TransactionCommitment(pub Fp);
+mod fp_serde {
+    use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
+    use mina_curves::pasta::Fp;
+    use serde::{Deserialize, Deserializer, Serializer};
+
+    pub fn serialize<S: Serializer>(fp: &Fp, s: S) -> Result<S::Ok, S::Error> {
+        let mut buf = Vec::new();
+        fp.serialize_uncompressed(&mut buf)
+            .map_err(serde::ser::Error::custom)?;
+        s.serialize_bytes(&buf)
+    }
+
+    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> Result<Fp, D::Error> {
+        let buf = Vec::<u8>::deserialize(d)?;
+        Fp::deserialize_uncompressed(&mut &buf[..]).map_err(serde::de::Error::custom)
+    }
+}
+
+#[derive(Copy, Clone, Debug, derive_more::Deref, derive_more::From, Deserialize, Serialize)]
+pub struct TransactionCommitment(#[serde(with = "fp_serde")] pub Fp);
 
 impl TransactionCommitment {
     /// <https://github.com/MinaProtocol/mina/blob/3753a8593cc1577bcf4da16620daf9946d88e8e5/src/lib/mina_base/zkapp_command.ml#L1365>
@@ -46,7 +65,7 @@ impl Hashable for TransactionCommitment {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZkappStatement {
     pub account_update: TransactionCommitment,
     pub calls: TransactionCommitment,
