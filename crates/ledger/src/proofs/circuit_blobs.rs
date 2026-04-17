@@ -153,35 +153,42 @@ pub fn fetch_blocking(filename: &impl AsRef<Path>) -> std::io::Result<Vec<u8>> {
         return std::fs::read(path);
     }
 
-    mina_core::info!(
-        mina_core::log::system_time();
-        kind = "ledger proofs",
-        message = "circuit-blobs not found locally, so fetching it...",
-        filename = filename.as_ref().to_str().unwrap(),
-    );
+    // In zkVM / no-network environments, circuit blobs must be available locally.
+    #[cfg(not(feature = "network"))]
+    return Err(std::io::Error::other(
+        "circuit-blobs not found locally and network fetching is disabled (feature 'network' not enabled)"
+    ));
 
-    let base_dir = home_base_dir.expect("$HOME env not set!");
+    #[cfg(feature = "network")]
+    {
+        mina_core::info!(
+            mina_core::log::system_time();
+            kind = "ledger proofs",
+            message = "circuit-blobs not found locally, so fetching it...",
+            filename = filename.as_ref().to_str().unwrap(),
+        );
 
-    let bytes = reqwest::blocking::get(git_release_url(filename))
-        .map_err(to_io_err)?
-        .bytes()
-        .map_err(to_io_err)?
-        .to_vec();
+        let base_dir = home_base_dir.expect("$HOME env not set!");
 
-    // cache it to home dir.
-    let cache_path = base_dir.join(filename);
-    mina_core::info!(
-        mina_core::log::system_time();
-        kind = "ledger proofs",
-        message = "caching circuit-blobs",
-        path = cache_path.to_str().unwrap(),
-    );
-    let _ = std::fs::create_dir_all(cache_path.parent().unwrap());
-    let _ = std::fs::write(cache_path, &bytes);
+        let bytes = reqwest::blocking::get(git_release_url(filename))
+            .map_err(to_io_err)?
+            .bytes()
+            .map_err(to_io_err)?
+            .to_vec();
 
-    Ok(bytes)
+        let cache_path = base_dir.join(filename);
+        mina_core::info!(
+            mina_core::log::system_time();
+            kind = "ledger proofs",
+            message = "caching circuit-blobs",
+            path = cache_path.to_str().unwrap(),
+        );
+        let _ = std::fs::create_dir_all(cache_path.parent().unwrap());
+        let _ = std::fs::write(cache_path, &bytes);
+
+        Ok(bytes)
+    }
 }
-
 #[cfg(target_family = "wasm")]
 pub async fn fetch(filename: &impl AsRef<Path>) -> std::io::Result<Vec<u8>> {
     let prefix =
