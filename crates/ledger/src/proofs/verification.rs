@@ -427,7 +427,7 @@ pub fn make_scalars_env<F: FieldWitness, const NLIMB: usize>(
     }
 }
 
-fn get_message_for_next_step_proof<'a, AppState>(
+pub fn get_message_for_next_step_proof<'a, AppState>(
     messages_for_next_step_proof: &PicklesProofProofsVerified2ReprStableV2MessagesForNextStepProof,
     commitments: &'a PlonkVerificationKeyEvals<Fp>,
     app_state: &'a AppState,
@@ -454,7 +454,7 @@ where
     })
 }
 
-fn get_message_for_next_wrap_proof(
+pub fn get_message_for_next_wrap_proof(
     PicklesProofProofsVerified2ReprStableV2MessagesForNextWrapProof {
         challenge_polynomial_commitment,
         old_bulletproof_challenges,
@@ -474,7 +474,7 @@ fn get_message_for_next_wrap_proof(
     })
 }
 
-fn get_prepared_statement<AppState>(
+pub fn get_prepared_statement<AppState>(
     message_for_next_step_proof: &MessagesForNextStepProof<AppState>,
     message_for_next_wrap_proof: &MessagesForNextWrapProof,
     deferred_values: DeferredValues<Fp>,
@@ -496,7 +496,7 @@ where
     }
 }
 
-fn verify_with(
+pub fn verify_with(
     verifier_index: &VerifierIndex<Fq>,
     proof: &ProverProof<Fq>,
     public_input: &[Fq],
@@ -554,7 +554,7 @@ fn batch_verify(proofs: &[VerificationContext]) -> Result<(), VerifyError> {
     >(&group_map, &proofs)
 }
 
-fn run_checks(
+pub fn run_checks(
     proof: &PicklesProofProofsVerified2ReprStableV2,
     verifier_index: &VerifierIndex<Fq>,
 ) -> bool {
@@ -673,7 +673,7 @@ fn run_checks(
     errors.is_empty()
 }
 
-fn compute_deferred_values(
+pub fn compute_deferred_values(
     proof: &PicklesProofProofsVerified2ReprStableV2,
 ) -> anyhow::Result<DeferredValues<Fp>> {
     let bulletproof_challenges: Vec<Fp> = proof

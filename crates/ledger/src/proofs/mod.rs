@@ -14,7 +14,7 @@ pub mod group_map;
 pub mod merge;
 pub mod numbers;
 pub mod opt_sponge;
-mod prover;
+pub mod prover;
 pub mod provers;
 pub mod public_input;
 pub mod step;
