@@ -1,4 +1,4 @@
-#[cfg(feature = "serializable_callbacks")]
+#[cfg(all(feature = "serializable_callbacks", not(target_arch = "riscv64")))]
 use linkme::distributed_slice;
 
 pub use paste;
@@ -7,9 +7,12 @@ use std::borrow::Cow;
 
 pub struct AnyAction(pub Box<dyn std::any::Any>);
 
-#[cfg(feature = "serializable_callbacks")]
+#[cfg(all(feature = "serializable_callbacks", not(target_arch = "riscv64")))]
 #[distributed_slice]
 pub static CALLBACKS: [(&str, fn(&str, Box<dyn std::any::Any>) -> AnyAction)];
+
+#[cfg(any(not(feature = "serializable_callbacks"), target_arch = "riscv64"))]
+pub static CALLBACKS: &[(&str, fn(&str, Box<dyn std::any::Any>) -> AnyAction)] = &[];
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Callback<T> {
@@ -38,12 +41,11 @@ impl<T: 'static> Callback<T> {
             return fun(args).into();
         }
 
-        #[cfg(not(feature = "serializable_callbacks"))]
+        #[cfg(any(not(feature = "serializable_callbacks"), target_arch = "riscv64"))]
         unimplemented!();
 
-        #[cfg(feature = "serializable_callbacks")]
+        #[cfg(all(feature = "serializable_callbacks", not(target_arch = "riscv64")))]
         {
-            // We reach this point only when the callback was deserialized
             for (name, fun) in CALLBACKS {
                 if name == &self.fun_name {
                     return fun(std::any::type_name::<T>(), Box::new(args)).into();
@@ -60,18 +62,18 @@ macro_rules! _callback {
     ($callback_name:ident, $action_ty:ty, $arg:tt, $arg_type:ty, $body:expr) => {{
         use $crate::{AnyAction, Callback};
 
-        #[cfg(feature = "serializable_callbacks")]
+        #[cfg(all(feature = "serializable_callbacks", not(target_arch = "riscv64")))]
         use {$crate::CALLBACKS, linkme::distributed_slice};
 
         redux::paste::paste! {
-            #[allow(unused)] // $arg is marked as unused, but it's used in `$body`
+            #[allow(unused)]
             fn convert_impl($arg: $arg_type) -> AnyAction {
                 let action: $action_ty = ($body).into();
                 AnyAction(Box::new(action))
             }
 
             fn $callback_name(call_type: &str, args: Box<dyn std::any::Any>) -> AnyAction {
-                #[cfg(feature = "serializable_callbacks")]
+                #[cfg(all(feature = "serializable_callbacks", not(target_arch = "riscv64")))]
                 {
                     #[distributed_slice(CALLBACKS)]
                     static CALLBACK_DESERIALIZE: (&str, fn(&str, Box<dyn std::any::Any>) -> AnyAction) = (
