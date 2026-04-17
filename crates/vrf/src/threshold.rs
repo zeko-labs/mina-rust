@@ -31,7 +31,7 @@ impl Threshold {
         let terms_needed: i32 = terms_needed.try_into().unwrap();
         let mut linear_term_integer_part = BigInt::zero();
 
-        let abs_log_base: BigRational4096 = abs_log_base.to_nlimbs::<64>();
+        let abs_log_base: BigRational4096 = abs_log_base.clone();
 
         let coefficients = (1..terms_needed).map(|x| {
             let c = abs_log_base.pow(x) / Self::factorial(x.into());
@@ -54,13 +54,12 @@ impl Threshold {
 
         // one_minus_exp to calculate the threshold rational
         let numer = BigRational2048::new(
-            &two_tpo_per_term_precission * &delegated_stake.to_nlimbs(),
-            total_currency.to_nlimbs(),
+            &two_tpo_per_term_precission * &delegated_stake.clone(),
+            total_currency.clone(),
         )
         .floor()
         .to_integer();
-        let input =
-            BigRational4096::new(numer.to_nlimbs(), two_tpo_per_term_precission.to_nlimbs());
+        let input = BigRational4096::new(numer.clone(), two_tpo_per_term_precission.clone());
 
         let denom = BigInt::one() << per_term_precission;
 
@@ -78,7 +77,7 @@ impl Threshold {
         Self {
             delegated_stake,
             total_currency,
-            threshold_rational: threshold_rational.to_nlimbs::<32>(),
+            threshold_rational: threshold_rational.clone(),
         }
     }
 
@@ -94,7 +93,7 @@ impl Threshold {
         let lower_bound = bigint_to_bigrational(&two.pow(bits_of_precission));
 
         let mut n = 0;
-        let log_base: BigRational4096 = log_base.to_nlimbs();
+        let log_base: BigRational4096 = log_base.clone();
 
         loop {
             let d: BigRational4096 = log_base.pow(n + 1);
@@ -107,15 +106,15 @@ impl Threshold {
         }
     }
 
-    fn factorial<const N: usize>(n: BigInt<N>) -> BigInt<N> {
-        if n == BigInt::<N>::zero() {
-            return BigInt::<N>::one();
+    fn factorial(n: BigInt) -> BigInt {
+        if n == BigInt::zero() {
+            return BigInt::one();
         }
         let mut res = n.clone();
-        let mut i = n - BigInt::<N>::one();
-        while i != BigInt::<N>::zero() {
+        let mut i = n - BigInt::one();
+        while i != BigInt::zero() {
             res *= i.clone();
-            i -= BigInt::<N>::one();
+            i -= BigInt::one();
         }
 
         res
@@ -194,14 +193,14 @@ pub fn get_fractional(vrf_out: BigInteger256) -> Ratio<BigInt2048> {
 }
 
 // TODO: is there a fn like this?
-pub fn bigint_to_bigrational<const N: usize>(x: &BigInt<N>) -> Ratio<BigInt<N>> {
+pub fn bigint_to_bigrational(x: &BigInt) -> Ratio<BigInt> {
     Ratio::new(x.clone(), BigInt::one())
 }
 
-pub fn bigrational_as_fixed_point<const N: usize>(
-    c: Ratio<BigInt<N>>,
+pub fn bigrational_as_fixed_point(
+    c: Ratio<BigInt>,
     per_term_precission: usize,
-) -> BigInt<N> {
+) -> BigInt {
     let numer = c.numer();
     let denom = c.denom();
 

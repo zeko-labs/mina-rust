@@ -52,16 +52,16 @@ pub enum VrfError {
     IvalidWitness,
 }
 
-/// 256 bits
-pub(crate) type BigInt256 = BigInt<4>;
+/// 256 bits (heap-allocated, no fixed size needed)
+pub(crate) type BigInt256 = BigInt;
 
 /// 2048 bits
-pub(crate) type BigInt2048 = BigInt<32>;
-pub(crate) type BigRational2048 = Ratio<BigInt2048>;
+pub(crate) type BigInt2048 = BigInt;
+pub(crate) type BigRational2048 = Ratio<BigInt>;
 
 /// 4096 bits
-pub(crate) type BigInt4096 = BigInt<64>;
-pub(crate) type BigRational4096 = Ratio<BigInt4096>;
+pub(crate) type BigInt4096 = BigInt;
+pub(crate) type BigRational4096 = Ratio<BigInt>;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct VrfWonSlot {
