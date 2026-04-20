@@ -156,9 +156,7 @@ where
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut binprot = Vec::new();
         let from = U::from(self.0.clone());
-        from.binprot_write(&mut binprot).map_err(|e| {
-            serde::ser::Error::custom(format!("Failed to convert to base58check: {e}"))
-        })?;
+        from.binprot_write(&mut binprot).map_err(|_| fmt::Error)?;
         let encoded = encode(&binprot, V);
 
         write!(f, "{}", encoded)
