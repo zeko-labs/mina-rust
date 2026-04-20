@@ -10770,3 +10770,38 @@ dependencies = [
  "cc",
  "pkg-config",
 ]
+
+[[patch.unused]]
+name = "kimchi"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "mina-curves"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "mina-hasher"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "mina-poseidon"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "mina-signer"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "o1-utils"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"
+
+[[patch.unused]]
+name = "poly-commitment"
+version = "0.7.0"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1#36a8b510cd34b9bd350e04989c87280f99e21e37"

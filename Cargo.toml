@@ -289,3 +289,12 @@ codegen-units = 1
 opt-level = 3
 debug-assertions = true
 overflow-checks = false
+
+[patch."https://github.com/o1-labs/proof-systems"]
+kimchi         = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+mina-curves    = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+mina-hasher    = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+mina-poseidon  = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+mina-signer    = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+o1-utils       = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
+poly-commitment = { git = "https://github.com/zeko-labs/proof-systems", branch = "sp1" }
