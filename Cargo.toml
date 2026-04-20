@@ -293,5 +293,7 @@ overflow-checks = false
 [patch.crates-io]
 core2 = { git = "https://github.com/bbqsrc/core2", rev = "545e84bcb0f235b12e21351e0c69767958efe2a7" }
 crypto-bigint = { git = "https://github.com/sp1-patches/RustCrypto-bigint", tag = "patch-0.5.5-sp1-6.0.0" }
-ark-ff = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-ff" }
-ark-ec = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-ec" }
+ark-ff        = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-ff" }
+ark-ec        = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-ec" }
+ark-serialize = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-serialize" }
+ark-poly      = { git = "https://github.com/zeko-labs/algebra", branch = "sp1-msm", package = "ark-poly" }

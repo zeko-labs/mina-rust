@@ -251,8 +251,8 @@ source = "git+https://github.com/zeko-labs/algebra?branch=sp1-msm#dec341f55d101a
 dependencies = [
  "ahash 0.8.12",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (git+https://github.com/zeko-labs/algebra?branch=sp1-msm)",
- "ark-serialize 0.5.0 (git+https://github.com/zeko-labs/algebra?branch=sp1-msm)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "ark-std 0.5.0",
  "educe",
  "fnv",
@@ -292,7 +292,7 @@ source = "git+https://github.com/zeko-labs/algebra?branch=sp1-msm#dec341f55d101a
 dependencies = [
  "ark-ff-asm 0.5.0",
  "ark-ff-macros 0.5.0",
- "ark-serialize 0.5.0 (git+https://github.com/zeko-labs/algebra?branch=sp1-msm)",
+ "ark-serialize 0.5.0",
  "ark-std 0.5.0",
  "arrayvec",
  "digest 0.10.7",
@@ -353,31 +353,16 @@ dependencies = [
 [[package]]
 name = "ark-poly"
 version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "579305839da207f02b89cd1679e50e67b4331e2f9294a57693e5051b7703fe27"
+source = "git+https://github.com/zeko-labs/algebra?branch=sp1-msm#dec341f55d101a908a00ee2df3e7426af30cb09b"
 dependencies = [
  "ahash 0.8.12",
  "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-serialize 0.5.0",
  "ark-std 0.5.0",
  "educe",
  "fnv",
  "hashbrown 0.15.5",
  "rayon",
-]
-
-[[package]]
-name = "ark-poly"
-version = "0.5.0"
-source = "git+https://github.com/zeko-labs/algebra?branch=sp1-msm#dec341f55d101a908a00ee2df3e7426af30cb09b"
-dependencies = [
- "ahash 0.8.12",
- "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (git+https://github.com/zeko-labs/algebra?branch=sp1-msm)",
- "ark-std 0.5.0",
- "educe",
- "fnv",
- "hashbrown 0.15.5",
 ]
 
 [[package]]
@@ -394,39 +379,14 @@ dependencies = [
 [[package]]
 name = "ark-serialize"
 version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3f4d068aaf107ebcd7dfb52bc748f8030e0fc930ac8e360146ca54c1203088f7"
-dependencies = [
- "ark-serialize-derive 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-std 0.5.0",
- "arrayvec",
- "digest 0.10.7",
- "num-bigint 0.4.6",
- "rayon",
-]
-
-[[package]]
-name = "ark-serialize"
-version = "0.5.0"
 source = "git+https://github.com/zeko-labs/algebra?branch=sp1-msm#dec341f55d101a908a00ee2df3e7426af30cb09b"
 dependencies = [
- "ark-serialize-derive 0.5.0 (git+https://github.com/zeko-labs/algebra?branch=sp1-msm)",
+ "ark-serialize-derive",
  "ark-std 0.5.0",
  "arrayvec",
  "digest 0.10.7",
  "num-bigint 0.4.6",
  "rayon",
-]
-
-[[package]]
-name = "ark-serialize-derive"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "213888f660fddcca0d257e88e54ac05bca01885f258ccdf695bafd77031bb69d"
-dependencies = [
- "proc-macro2 1.0.106",
- "quote 1.0.45",
- "syn 2.0.117",
 ]
 
 [[package]]
@@ -3694,7 +3654,7 @@ dependencies = [
 [[package]]
 name = "groupmap"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -4362,7 +4322,7 @@ dependencies = [
 [[package]]
 name = "internal-tracing"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 
 [[package]]
 name = "ipconfig"
@@ -4635,12 +4595,12 @@ dependencies = [
 [[package]]
 name = "kimchi"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "blake2",
  "groupmap",
  "hex",
@@ -4692,9 +4652,9 @@ checksum = "830d08ce1d1d941e6b30645f1a0eb5643013d835ce3779a5fc208261dbe10f55"
 
 [[package]]
 name = "leb128"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "884e2677b40cc8c339eaefcb701c32ef1fd2493d71118dc0ca4b6a736c93bd67"
+checksum = "6cc46bac87ef8093eed6f272babb833b6443374399985ac8ed28471ee0918545"
 
 [[package]]
 name = "leb128fmt"
@@ -5457,7 +5417,7 @@ dependencies = [
 [[package]]
 name = "mina-curves"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-bn254",
  "ark-ec",
@@ -5494,7 +5454,7 @@ dependencies = [
 [[package]]
 name = "mina-hasher"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ff 0.5.0",
  "bitvec",
@@ -5837,7 +5797,7 @@ dependencies = [
  "alloc-test",
  "anyhow",
  "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-serialize 0.5.0",
  "base64 0.22.1",
  "binprot",
  "binprot_derive",
@@ -5877,12 +5837,12 @@ dependencies = [
 [[package]]
 name = "mina-poseidon"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "mina-curves",
  "o1-utils",
  "once_cell",
@@ -5895,7 +5855,7 @@ dependencies = [
 [[package]]
 name = "mina-signer"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -5919,7 +5879,7 @@ version = "0.19.0"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
  "derive_more 0.99.20",
  "hex",
  "kimchi",
@@ -5965,8 +5925,8 @@ dependencies = [
  "anyhow",
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "backtrace",
  "base64 0.22.1",
  "bitvec",
@@ -6027,7 +5987,7 @@ dependencies = [
  "anyhow",
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-serialize 0.5.0",
  "bs58 0.4.0",
  "hex",
  "itertools 0.12.1",
@@ -6557,12 +6517,12 @@ dependencies = [
 [[package]]
 name = "o1-utils"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "bcs",
  "hex",
  "num-bigint 0.4.6",
@@ -7318,12 +7278,12 @@ dependencies = [
 [[package]]
 name = "poly-commitment"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-poly 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-poly",
+ "ark-serialize 0.5.0",
  "blake2",
  "bytemuck",
  "crypto-bigint 0.5.5",
@@ -7388,7 +7348,7 @@ name = "poseidon"
 version = "0.19.0"
 dependencies = [
  "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-serialize 0.5.0",
  "mina-curves",
  "o1-utils",
  "once_cell",
@@ -9691,7 +9651,7 @@ version = "0.19.0"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
- "ark-serialize 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ark-serialize 0.5.0",
  "binprot",
  "binprot_derive",
  "bitvec",
@@ -9803,7 +9763,7 @@ dependencies = [
 [[package]]
 name = "turshi"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#22d4ab7e34cc23a43d96e599902da63a016453a2"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#fbdf39a707f755c010bcdfb8e061466fd9ba856f"
 dependencies = [
  "ark-ff 0.5.0",
  "hex",
