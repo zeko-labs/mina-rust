@@ -64,6 +64,47 @@ use super::public_input::{
     prepared_statement::{DeferredValues, PreparedStatement, ProofState},
 };
 
+use ark_serialize::CanonicalSerialize;
+use std::{fs, path::PathBuf};
+
+fn dump_verify_fixture(
+    verifier_index: &VerifierIndex<Fq>,
+    proof: &ProverProof<Fq>,
+    public_input: &[Fq],
+) {
+    let suffix = format!(
+        "{}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    );
+
+    let vi_path = PathBuf::from(format!("/tmp/kimchi_verify_index_{suffix}.bin"));
+    let proof_path = PathBuf::from(format!("/tmp/kimchi_verify_proof_{suffix}.bin"));
+
+    verifier_index
+        .to_file(&vi_path, Some(false))
+        .expect("failed to dump verifier index");
+
+    let public_input_bytes: Vec<[u8; 32]> = public_input
+        .iter()
+        .map(|x| {
+            let mut buf = [0u8; 32];
+            x.serialize_uncompressed(&mut &mut buf[..])
+                .expect("failed to serialize field element");
+            buf
+        })
+        .collect();
+
+    let payload = (proof, public_input_bytes);
+    let bytes = rmp_serde::to_vec(&payload).expect("failed to serialize proof payload");
+    fs::write(&proof_path, bytes).expect("failed to write proof payload");
+
+    eprintln!("verifier index dumped to {}", vi_path.display());
+    eprintln!("proof payload dumped to {}", proof_path.display());
+}
+
 #[cfg(target_family = "wasm")]
 #[cfg(test)]
 mod wasm {
@@ -508,6 +549,10 @@ pub fn verify_with(
     type SpongeParams = mina_poseidon::constants::PlonkSpongeConstantsKimchi;
     type EFqSponge = DefaultFqSponge<PallasParameters, SpongeParams, FULL_ROUNDS>;
     type EFrSponge = DefaultFrSponge<Fq, SpongeParams, FULL_ROUNDS>;
+
+    if std::env::var_os("KIMCHI_DUMP_VERIFY").is_some() {
+        dump_verify_fixture(verifier_index, proof, public_input);
+    }
 
     let group_map = GroupMap::<Fp>::setup();
 
