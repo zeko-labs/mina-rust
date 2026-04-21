@@ -34,7 +34,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d122413f284cf2d62fb1b7db97e02edb8cda96d769b16e443a4f6195e35662b0"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "generic-array",
 ]
 
@@ -732,9 +732,9 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
 name = "aws-config"
-version = "1.8.15"
+version = "1.8.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "11493b0bad143270fb8ad284a096dd529ba91924c5409adeac856cc1bf047dbc"
+checksum = "50f156acdd2cf55f5aa53ee416c4ac851cf1222694506c0b1f78c85695e9ca9d"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -796,9 +796,9 @@ dependencies = [
 
 [[package]]
 name = "aws-runtime"
-version = "1.7.2"
+version = "1.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5fc0651c57e384202e47153c1260b84a9936e19803d747615edf199dc3b98d17"
+checksum = "5dcd93c82209ac7413532388067dce79be5a8780c1786e5fae3df22e4dee2864"
 dependencies = [
  "aws-credential-types",
  "aws-sigv4",
@@ -844,7 +844,7 @@ dependencies = [
  "bytes",
  "fastrand 2.4.1",
  "hex",
- "hmac",
+ "hmac 0.12.1",
  "http 0.2.12",
  "http 1.4.0",
  "http-body 0.4.6",
@@ -858,9 +858,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-sso"
-version = "1.97.0"
+version = "1.98.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9aadc669e184501caaa6beafb28c6267fc1baef0810fb58f9b205485ca3f2567"
+checksum = "d69c77aafa20460c68b6b3213c84f6423b6e76dbf89accd3e1789a686ffd9489"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -882,9 +882,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-ssooidc"
-version = "1.99.0"
+version = "1.100.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1342a7db8f358d3de0aed2007a0b54e875458e39848d54cc1d46700b2bfcb0a8"
+checksum = "1c7e7b09346d5ca22a2a08267555843a6a0127fb20d8964cb6ecfb8fdb190225"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -906,9 +906,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sdk-sts"
-version = "1.102.0"
+version = "1.103.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fc35b7a14cabdad13795fbbbd26d5ddec0882c01492ceedf2af575aad5f37dd"
+checksum = "c2249b81a2e73a8027c41c378463a81ec39b8510f184f2caab87de912af0f49b"
 dependencies = [
  "aws-credential-types",
  "aws-runtime",
@@ -931,9 +931,9 @@ dependencies = [
 
 [[package]]
 name = "aws-sigv4"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0b660013a6683ab23797778e21f1f854744fdf05f68204b4cca4c8c04b5d1f4"
+checksum = "68dc0b907359b120170613b5c09ccc61304eac3998ff6274b97d93ee6490115a"
 dependencies = [
  "aws-credential-types",
  "aws-smithy-eventstream",
@@ -944,13 +944,13 @@ dependencies = [
  "crypto-bigint 0.5.5",
  "form_urlencoded",
  "hex",
- "hmac",
+ "hmac 0.13.0",
  "http 0.2.12",
  "http 1.4.0",
  "p256 0.11.1",
  "percent-encoding",
  "ring 0.17.14",
- "sha2 0.10.9",
+ "sha2 0.11.0",
  "subtle",
  "time",
  "tracing",
@@ -1200,9 +1200,9 @@ dependencies = [
 
 [[package]]
 name = "aws-types"
-version = "1.3.14"
+version = "1.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47c8323699dd9b3c8d5b3c13051ae9cdef58fd179957c882f8374dd8725962d9"
+checksum = "2f4bbcaa9304ea40902d3d5f42a0428d1bd895a2b0f6999436fb279ffddc58ac"
 dependencies = [
  "aws-credential-types",
  "aws-smithy-async",
@@ -1499,6 +1499,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "block-buffer"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cdd35008169921d80bc60d3d0ab416eecb028c4cd653352907921d95084790be"
+dependencies = [
+ "hybrid-array",
+]
+
+[[package]]
 name = "block-padding"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1776,7 +1785,7 @@ version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "773f3b9af64447d2ce9850330c473515014aa235e6a783b02db81ff39e4a3dad"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "inout",
  "zeroize",
 ]
@@ -1857,6 +1866,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "cmov"
+version = "0.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f88a43d011fc4a6876cb7344703e297c71dda42494fee094d5f7c76bf13f746"
+
+[[package]]
 name = "cobs"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1934,6 +1949,12 @@ name = "const-oid"
 version = "0.9.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2459377285ad874054d797f3ccebf984978aa39129f6eafde5cdc8315b612f8"
+
+[[package]]
+name = "const-oid"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6ef517f0926dd24a1582492c791b6a4818a4d94e789a334894aa15b0d12f55c"
 
 [[package]]
 name = "const-str"
@@ -2202,6 +2223,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-common"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77727bb15fa921304124b128af125e7e3b968275d1b108b379190264f4423710"
+dependencies = [
+ "hybrid-array",
+]
+
+[[package]]
 name = "crypto_secretbox"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2234,6 +2264,15 @@ dependencies = [
  "dispatch2",
  "nix 0.31.2",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "ctutils"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d5515a3834141de9eafb9717ad39eea8247b5674e6066c404e8c4b365d2a29e"
+dependencies = [
+ "cmov",
 ]
 
 [[package]]
@@ -2442,7 +2481,7 @@ version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f1a467a65c5e759bce6e65eaf91cc29f466cdc57cb65777bd646872a8a1fd4de"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "zeroize",
 ]
 
@@ -2452,7 +2491,7 @@ version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e7c1832837b905bbfb5101e07cc24c8deddf52f93225eee6ead5f4d63d53ddcb"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "pem-rfc7468",
  "zeroize",
 ]
@@ -2654,9 +2693,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
 dependencies = [
  "block-buffer 0.10.4",
- "const-oid",
- "crypto-common",
+ "const-oid 0.9.6",
+ "crypto-common 0.1.7",
  "subtle",
+]
+
+[[package]]
+name = "digest"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4850db49bf08e663084f7fb5c87d202ef91a3907271aff24a94eb97ff039153c"
+dependencies = [
+ "block-buffer 0.12.0",
+ "const-oid 0.10.2",
+ "crypto-common 0.2.1",
+ "ctutils",
 ]
 
 [[package]]
@@ -3037,7 +3088,7 @@ checksum = "2fc4654a34350a862e0332d314f6a4d27d68142bc947e9afbf03c78023848777"
 dependencies = [
  "bytes",
  "crc",
- "hmac",
+ "hmac 0.12.1",
  "md-5",
  "num_enum 0.6.1",
  "sha-1",
@@ -3660,7 +3711,7 @@ dependencies = [
 [[package]]
 name = "groupmap"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -3851,7 +3902,7 @@ version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b5f8eb2ad728638ea2c7d47a21db23b7b58a72ed6a38256b8a1849f15fbbdf7"
 dependencies = [
- "hmac",
+ "hmac 0.12.1",
 ]
 
 [[package]]
@@ -3861,6 +3912,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
 dependencies = [
  "digest 0.10.7",
+]
+
+[[package]]
+name = "hmac"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6303bc9732ae41b04cb554b844a762b4115a61bfaa81e3e83050991eeb56863f"
+dependencies = [
+ "digest 0.11.2",
 ]
 
 [[package]]
@@ -3944,6 +4004,15 @@ name = "httpdate"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
+
+[[package]]
+name = "hybrid-array"
+version = "0.4.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3944cf8cf766b40e2a1a333ee5e9b563f854d5fa49d6a8ca2764e97c6eddb214"
+dependencies = [
+ "typenum",
+]
 
 [[package]]
 name = "hyper"
@@ -4328,7 +4397,7 @@ dependencies = [
 [[package]]
 name = "internal-tracing"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 
 [[package]]
 name = "ipconfig"
@@ -4601,7 +4670,7 @@ dependencies = [
 [[package]]
 name = "kimchi"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -5174,9 +5243,9 @@ checksum = "92daf443525c4cce67b150400bc2316076100ce0b3686209eb8cf3c31612e6f0"
 
 [[package]]
 name = "local-ip-address"
-version = "0.6.11"
+version = "0.6.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d4a59a0cb1c7f84471ad5cd38d768c2a29390d17f1ff2827cdf49bc53e8ac70b"
+checksum = "d7b0187df4e614e42405b49511b82ff7a1774fbd9a816060ee465067847cac22"
 dependencies = [
  "libc",
  "neli",
@@ -5423,7 +5492,7 @@ dependencies = [
 [[package]]
 name = "mina-curves"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-bn254",
  "ark-ec",
@@ -5460,7 +5529,7 @@ dependencies = [
 [[package]]
 name = "mina-hasher"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ff 0.5.0",
  "bitvec",
@@ -5843,7 +5912,7 @@ dependencies = [
 [[package]]
 name = "mina-poseidon"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -5861,7 +5930,7 @@ dependencies = [
 [[package]]
 name = "mina-signer"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -6523,7 +6592,7 @@ dependencies = [
 [[package]]
 name = "o1-utils"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -7284,7 +7353,7 @@ dependencies = [
 [[package]]
 name = "poly-commitment"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ec",
  "ark-ff 0.5.0",
@@ -8022,7 +8091,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7743f17af12fa0b03b803ba12cd6a8d9483a587e89c69445e3909655c0b9fabb"
 dependencies = [
  "crypto-bigint 0.4.9",
- "hmac",
+ "hmac 0.12.1",
  "zeroize",
 ]
 
@@ -8032,7 +8101,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8dd2a808d456c4a54e300a23e9f5a67e122c3024119acbfd73e3bf664491cb2"
 dependencies = [
- "hmac",
+ "hmac 0.12.1",
  "subtle",
 ]
 
@@ -8096,7 +8165,7 @@ version = "0.9.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8573f03f5883dcaebdfcf4725caa1ecb9c15b2ef50c43a07b816e06799bb12d"
 dependencies = [
- "const-oid",
+ "const-oid 0.9.6",
  "digest 0.10.7",
  "num-bigint-dig",
  "num-integer",
@@ -8696,6 +8765,17 @@ dependencies = [
  "cfg-if",
  "cpufeatures 0.2.17",
  "digest 0.10.7",
+]
+
+[[package]]
+name = "sha2"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "446ba717509524cb3f22f17ecc096f10f4822d76ab5c0b9822c5f9c284e825f4"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.0",
+ "digest 0.11.2",
 ]
 
 [[package]]
@@ -9769,7 +9849,7 @@ dependencies = [
 [[package]]
 name = "turshi"
 version = "0.3.0"
-source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#e6f16ca41ecef8d59c2fca74309acba308ad17bb"
+source = "git+https://github.com/zeko-labs/proof-systems?branch=sp1-msm#1b729b30d571a0e069cb4fb538c0daf18cfaf2a1"
 dependencies = [
  "ark-ff 0.5.0",
  "hex",
@@ -9869,7 +9949,7 @@ version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc1de2c688dc15305988b563c3854064043356019f97a4b46276fe734c4f07ea"
 dependencies = [
- "crypto-common",
+ "crypto-common 0.1.7",
  "subtle",
 ]
 
@@ -10383,7 +10463,7 @@ dependencies = [
  "ccm",
  "der-parser 8.2.0",
  "hkdf",
- "hmac",
+ "hmac 0.12.1",
  "log",
  "p256 0.13.2",
  "p384",
@@ -10493,7 +10573,7 @@ dependencies = [
  "etherparse",
  "hex",
  "hkdf",
- "hmac",
+ "hmac 0.12.1",
  "log",
  "nom 8.0.0",
  "p256 0.13.2",
@@ -10516,7 +10596,7 @@ dependencies = [
  "byteorder",
  "bytes",
  "ctr",
- "hmac",
+ "hmac 0.12.1",
  "log",
  "rtcp",
  "rtp",
