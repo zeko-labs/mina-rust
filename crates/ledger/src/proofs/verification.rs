@@ -6,6 +6,8 @@ use itertools::Itertools;
 use mina_p2p_messages::bigint::InvalidBigInt;
 use poly_commitment::ipa::SRS;
 
+use poly_commitment::SRS as SRSTrait;
+
 use crate::{
     proofs::{
         accumulator_check,
@@ -72,59 +74,55 @@ fn dump_verify_fixture(
     proof: &ProverProof<Fq>,
     public_input: &[Fq],
 ) {
+    use ark_serialize::CanonicalSerialize;
     use std::{fs, path::PathBuf};
 
-    let vi_path = PathBuf::from("/tmp/kimchi_verify_index.bin");
-    let proof_path = PathBuf::from("/tmp/kimchi_verify_proof.bin");
+    let dir = PathBuf::from("/tmp/kimchi_fixture");
+    fs::create_dir_all(&dir).unwrap();
 
-    if vi_path.exists() {
-        fs::remove_file(&vi_path).expect("failed to remove old verifier index file");
-    }
-    if proof_path.exists() {
-        fs::remove_file(&proof_path).expect("failed to remove old proof file");
-    }
-
-    std::fs::File::create(&vi_path).expect("failed to create verifier index file");
-    std::fs::File::create(&proof_path).expect("failed to create proof file");
-
-    verifier_index
-        .to_file(&vi_path, Some(true))
-        .expect("failed to dump verifier index");
-
-    let vi_size = fs::metadata(&vi_path)
-        .expect("missing verifier index file")
-        .len();
+    // 1. Verifier index
+    let vi_path = dir.join("verifier_index.bin");
+    fs::File::create(&vi_path).unwrap();
+    verifier_index.to_file(&vi_path, Some(true)).unwrap();
     println!(
-        "verifier index dumped to {} ({} bytes)",
-        vi_path.display(),
-        vi_size
+        "verifier_index: {} bytes",
+        fs::metadata(&vi_path).unwrap().len()
     );
 
+    // 2. SRS — via srs.to_file ou serialize les champs manuellement
+    let srs_path = dir.join("srs.bin");
+    fs::File::create(&srs_path).unwrap();
+    let srs = verifier_index.srs();
+    // g et h sont des points affines qui implémentent CanonicalSerialize
+    let mut srs_bytes = Vec::new();
+    srs.g.serialize_uncompressed(&mut srs_bytes).unwrap();
+    let mut h_bytes = Vec::new();
+    srs.h.serialize_uncompressed(&mut h_bytes).unwrap();
+    let srs_payload = (srs_bytes, h_bytes);
+    fs::write(&srs_path, bincode::serialize(&srs_payload).unwrap()).unwrap();
+    println!("srs: {} bytes", fs::metadata(&srs_path).unwrap().len());
+
+    let depth = verifier_index.srs().max_poly_size();
+    fs::File::create("srs_depth.txt").unwrap();
+    fs::write(dir.join("srs_depth.txt"), depth.to_string()).unwrap();
+    println!("srs_depth: {}", depth);
+
+    // 3. Proof — bincode comme ton code original
+    let proof_path = dir.join("proof.bin");
+    fs::File::create(&proof_path).unwrap();
     let public_input_bytes: Vec<[u8; 32]> = public_input
         .iter()
         .map(|x| {
             let mut buf = [0u8; 32];
-            x.serialize_uncompressed(&mut &mut buf[..])
-                .expect("failed to serialize field element");
+            x.serialize_uncompressed(&mut &mut buf[..]).unwrap();
             buf
         })
         .collect();
-
     let payload = (proof, public_input_bytes);
-    let bytes = rmp_serde::to_vec(&payload).expect("failed to serialize proof payload");
-    fs::write(&proof_path, bytes).expect("failed to write proof payload");
-
-    let proof_size = fs::metadata(&proof_path).expect("missing proof file").len();
-    println!(
-        "proof payload dumped to {} ({} bytes)",
-        proof_path.display(),
-        proof_size
-    );
-
-    assert!(vi_size > 0, "verifier index file is empty after dump");
-    assert!(proof_size > 0, "proof file is empty after dump");
+    let bytes = rmp_serde::to_vec(&payload).unwrap();
+    fs::write(&proof_path, bytes).unwrap();
+    println!("proof: {} bytes", fs::metadata(&proof_path).unwrap().len());
 }
-
 #[cfg(target_family = "wasm")]
 #[cfg(test)]
 mod wasm {
