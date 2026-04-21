@@ -89,6 +89,12 @@ fn dump_verify_fixture(
         fs::metadata(&vi_path).unwrap().len()
     );
 
+    let vi_bincode_path = dir.join("verifier_index_bincode.bin");
+    fs::File::create(&vi_bincode_path).unwrap();
+    let vi_bytes = bincode::serialize(verifier_index).unwrap();
+    fs::write(&vi_bincode_path, &vi_bytes).unwrap();
+    println!("verifier_index_bincode: {} bytes", vi_bytes.len());
+
     // 2. SRS — via srs.to_file ou serialize les champs manuellement
     let srs_path = dir.join("srs.bin");
     fs::File::create(&srs_path).unwrap();
@@ -101,11 +107,6 @@ fn dump_verify_fixture(
     let srs_payload = (srs_bytes, h_bytes);
     fs::write(&srs_path, bincode::serialize(&srs_payload).unwrap()).unwrap();
     println!("srs: {} bytes", fs::metadata(&srs_path).unwrap().len());
-
-    let depth = verifier_index.srs().max_poly_size();
-    fs::File::create("srs_depth.txt").unwrap();
-    fs::write(dir.join("srs_depth.txt"), depth.to_string()).unwrap();
-    println!("srs_depth: {}", depth);
 
     // 3. Proof — bincode comme ton code original
     let proof_path = dir.join("proof.bin");
@@ -121,6 +122,10 @@ fn dump_verify_fixture(
     let payload = (proof, public_input_bytes);
     let bytes = rmp_serde::to_vec(&payload).unwrap();
     fs::write(&proof_path, bytes).unwrap();
+
+    println!("vi.domain.size = {}", verifier_index.domain.size());
+    println!("srs.g.len = {}", verifier_index.srs().g.len());
+    println!("vi.endo = {:?}", verifier_index.endo);
     println!("proof: {} bytes", fs::metadata(&proof_path).unwrap().len());
 }
 #[cfg(target_family = "wasm")]
