@@ -72,20 +72,33 @@ fn dump_verify_fixture(
     proof: &ProverProof<Fq>,
     public_input: &[Fq],
 ) {
-    let suffix = format!(
-        "{}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
-            .as_nanos()
-    );
+    use std::{fs, path::PathBuf};
 
-    let vi_path = PathBuf::from(format!("/tmp/kimchi_verify_index_{suffix}.bin"));
-    let proof_path = PathBuf::from(format!("/tmp/kimchi_verify_proof_{suffix}.bin"));
+    let vi_path = PathBuf::from("/tmp/kimchi_verify_index.bin");
+    let proof_path = PathBuf::from("/tmp/kimchi_verify_proof.bin");
+
+    if vi_path.exists() {
+        fs::remove_file(&vi_path).expect("failed to remove old verifier index file");
+    }
+    if proof_path.exists() {
+        fs::remove_file(&proof_path).expect("failed to remove old proof file");
+    }
+
+    std::fs::File::create(&vi_path).expect("failed to create verifier index file");
+    std::fs::File::create(&proof_path).expect("failed to create proof file");
 
     verifier_index
-        .to_file(&vi_path, Some(false))
+        .to_file(&vi_path, Some(true))
         .expect("failed to dump verifier index");
+
+    let vi_size = fs::metadata(&vi_path)
+        .expect("missing verifier index file")
+        .len();
+    println!(
+        "verifier index dumped to {} ({} bytes)",
+        vi_path.display(),
+        vi_size
+    );
 
     let public_input_bytes: Vec<[u8; 32]> = public_input
         .iter()
@@ -101,8 +114,15 @@ fn dump_verify_fixture(
     let bytes = rmp_serde::to_vec(&payload).expect("failed to serialize proof payload");
     fs::write(&proof_path, bytes).expect("failed to write proof payload");
 
-    eprintln!("verifier index dumped to {}", vi_path.display());
-    eprintln!("proof payload dumped to {}", proof_path.display());
+    let proof_size = fs::metadata(&proof_path).expect("missing proof file").len();
+    println!(
+        "proof payload dumped to {} ({} bytes)",
+        proof_path.display(),
+        proof_size
+    );
+
+    assert!(vi_size > 0, "verifier index file is empty after dump");
+    assert!(proof_size > 0, "proof file is empty after dump");
 }
 
 #[cfg(target_family = "wasm")]
@@ -551,6 +571,7 @@ pub fn verify_with(
     type EFrSponge = DefaultFrSponge<Fq, SpongeParams, FULL_ROUNDS>;
 
     if std::env::var_os("KIMCHI_DUMP_VERIFY").is_some() {
+        println!("Dump proof");
         dump_verify_fixture(verifier_index, proof, public_input);
     }
 
